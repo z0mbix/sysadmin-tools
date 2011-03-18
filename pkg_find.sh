@@ -1,11 +1,11 @@
 #!/bin/sh
 #
-# pkg_find is a utility to easily locate OpenBSD/FreeBSD packages
-#
-# Author:  z0mbix (zombie | at | zombix dot org)
-#
-# 19/01/06 - Version 0.1 - OpenBSD Version
-# 26/07/10 - Version 0.2 - Added FreeBSD Support
+# Author:
+#   z0mbix
+# Description:
+#   Utility to easily locate OpenBSD/FreeBSD packages for the current release
+# Requirements:
+#   An OpenBSD or FreeBSD system
 #
 
 UNAME=`uname -s`
