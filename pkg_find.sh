@@ -22,6 +22,8 @@ elif [ ${UNAME} = "OpenBSD" ]; then
 	FTPMIRROR=ftp.openbsd.org
 	FTPPATH=pub/OpenBSD/$RELEASE/packages/$ARCH
 	INDEXFILE=index.txt
+elif [ ${UNAME} = "NetBSD" ]; then
+	echo "Shouldn't you be using pkgin?"
 else
 	echo "You're not using FreeBSD or OpenBSD!"
 	exit 1
