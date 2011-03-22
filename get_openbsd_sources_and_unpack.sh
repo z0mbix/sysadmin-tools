@@ -2,40 +2,38 @@
 
 if [ `uname` != "OpenBSD" ]; then
 	echo "System is not OpenBSD!! Aborting."
+	exit 1
 fi
 
-release=$1
-mirror=ftp.openbsd.org
-url=ftp://$mirror/pub/OpenBSD/$release
+RELEASE=$1
+MIRROR=ftp.openbsd.org
+URL=ftp://$MIRROR/pub/OpenBSD/$RELEASE
 
 echo "Getting system source:"
-ftp $url/src.tar.gz
+ftp $URL/src.tar.gz
 
 echo "Getting kernel source:"
-ftp $url/sys.tar.gz
+ftp $URL/sys.tar.gz
 
 echo "Getting ports tree:" 
-ftp $url/ports.tar.gz
+ftp $URL/ports.tar.gz
 
 if [ ! -d /usr/src ]; then
 	mkdir /usr/src
 fi
 
 # Unpack the system source files:
-cp src.tar.gz /usr/src
-cd /usr/src
-tar -xvzf src.tar.gz
-rm -f /usr/src/src.tar.gz
+if [ -f src.tar.gz ]; then
+	tar xzf src.tar.gz -C /usr/src
+fi
 
 # Unpack the kernel source files:
-cp sys.tar.gz /usr/src
-cd /usr/src
-tar -xvzf sys.tar.gz
-rm -f /usr/src/sys.tar.gz
+if [ -f sys.tar.gz ]; then
+	tar xzf sys.tar.gz -C /usr/src
+fi
 
-cp ports.tar.gz /usr
-cd /usr
-tar xzf ports.tar.gz
-rm -f /usr/ports.tar.gz
+if [ -f ports.tar.gz ]; then
+	tar xzf ports.tar.gz -C /usr
+fi
 
 echo "done."
