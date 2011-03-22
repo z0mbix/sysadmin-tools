@@ -1,10 +1,14 @@
 #!/bin/sh
 #
-# Description: Quick and simple way for a sysadmin to take notes on a system
-#   to keep a track of what changes he/she made. Add to shell logout file
+# shlog - Shell Log
+#
+# Description:
+#   Quick and simple way for a sysadmin to take notes on a system to
+#   keep a track of what changes he/she made. Add to shell logout file
 #   to get it to prompt you when you log out.
 #
-# Requirements: A shell and some fingers
+# Requirements:
+#   A shell and some fingers
 #
 # Author: z0mbix (zombie@zombix.org)
 #
