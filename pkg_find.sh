@@ -22,10 +22,13 @@ elif [ ${UNAME} = "OpenBSD" ]; then
 	FTPMIRROR=ftp.openbsd.org
 	FTPPATH=pub/OpenBSD/$RELEASE/packages/$ARCH
 	INDEXFILE=index.txt
+else
+	echo "You're not using FreeBSD or OpenBSD!"
+	exit 1
 fi
 
 if [ $# -lt 1 ]; then
-  echo "Please specify atleast one package to search for."
+	echo "Please specify atleast one package to search for."
 else
 	if [ ! -f $PKGFILE ]; then
 		echo "$PKGFILE does not exist, downloading..."
