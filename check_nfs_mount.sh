@@ -1,9 +1,12 @@
 #!/bin/bash
 #
-# If NFS clients boot-up before the NFS server(s) have started
-# the shares aren't mounted. This needs a work around.
-#
-# DW - 01/Nov/09
+# Description:
+#   If NFS clients boot-up before the NFS server(s) have started
+#   the shares aren't mounted. This needs a work around.
+# Requirements:
+#   A Shell and NFS client
+# Usage:
+#   Put this in your start-up somwhere
 #
 
 MNT=/Content
