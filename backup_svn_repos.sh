@@ -5,13 +5,16 @@
 # Requirements:
 #   Subversion
 #   pigz or gzip
+# Example Usage:
+#   cd /data/backups/svn/ && backup_svn_repos.sh
+#
 
 REPODIR=/var/lib/svn
 TODAY=`date +%Y-%m-%d`
 COMP_TOOL=gzip
-which pigz && COMP_TOOL=pigz
+which pigz >/dev/null && COMP_TOOL=pigz
 
-logger "Dumping All SVN repos to ${TODAY}"
+logger "Dumping All SVN repos to `pwd`/${TODAY}"
 
 mkdir ${TODAY}
 cd ${TODAY}
