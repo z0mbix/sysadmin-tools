@@ -1,0 +1,5 @@
+#!/bin/sh
+
+if ! getent passwd $1>/dev/null; then
+	exit 1
+fi
