@@ -38,7 +38,7 @@ else
 			ftp -4 -V -o $PKGFILE.bz2 ftp://$FTPMIRROR/$FTPPATH/$INDEXFILE
 			bunzip2 $PKGFILE.bz2
 		elif [ ${UNAME} = "OpenBSD" ]; then
-			ftp -4 -V -o $PKGFILE ftp://$FTPMIRROR/$FTPPATH/$INDEXFILE
+			ftp -4 -V -o - ftp://$FTPMIRROR/$FTPPATH/$INDEXFILE | awk '{print $10}' > $PKGFILE
 		fi
 		
 		if [ ! -f $PKGFILE ]; then
@@ -53,8 +53,10 @@ else
 		echo "Results for: $PKG"
 		if [ ${UNAME} = "FreeBSD" ]; then
 			grep -i "^$PKG" $PKGFILE | cut -f1 -d\|
-		elif [ ${UNAME} = "FreeBSD" ]; then
+		elif [ ${UNAME} = "OpenBSD" ]; then
 			grep -i "^$PKG" $PKGFILE
+		else
+			echo "OS?"
 		fi
 	done
 fi
