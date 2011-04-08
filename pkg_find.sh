@@ -6,6 +6,8 @@
 #   Utility to easily locate OpenBSD/FreeBSD packages for the current release
 # Requirements:
 #   An OpenBSD or FreeBSD system
+# Notes:
+#   Package index file (index.txt) format changed from 4.6 onwards
 #
 
 UNAME=`uname -s`
