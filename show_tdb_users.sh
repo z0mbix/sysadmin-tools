@@ -5,14 +5,14 @@
 # Requirements:
 #   tdb-tools (apt-get install tdb-tools on debian/ubuntu)
 # Example Usage:
-#   show_tdb_users.sh /etc/samba/private/passdb.tdb
+#   show_tdb_users.sh /etc/samba/private/userpasswd.tdb
 #
 
-DB=$1
+# Default password database file name
+DB=/etc/samba/private/passdb.tdb
 
-if [ -z $DB ]; then
-	echo "You need to specify a tdb database file"
-	exit 1
+if [ ! -z $1 ]; then
+	DB=$1
 fi
 
 if [ ! -f $DB ]; then
