@@ -1,0 +1,40 @@
+#!/bin/bash
+#
+# Description:
+#   Mount a LV's partition
+# Requirements:
+#   LVM, kpartx
+# Usage:
+#   mount_lvm_partition.sh prd-db01-root
+#
+
+if [ $# != 1 ]; then
+	echo "You must specify an LV to mount!"
+	exit 1
+fi
+
+MNTPNT=/mnt/lvm
+LVMPART=$1
+LVMMNTPNT=$MNTPNT/$LVMPART
+VOLGRP=`lvs |grep $LVMPART|awk '{print \$2}'`
+
+# Check device exists, and exit if not:
+if [ ! -b /dev/$VOLGRP/$LVMPART ]; then
+	echo "/dev/$VOLGRP/$LVMPART does not exist!"
+	exit 1
+fi
+
+# Create mount point:
+if [ ! -d $MNTPNT/$LVMPART ]; then
+	mkdir -p $MNTPNT/$LVMPART
+fi
+
+MAP=`kpartx -l /dev/$VOLGRP/$LVMPART | cut -f1 -d" "`
+kpartx -a /dev/$VOLGRP/$LVMPART
+
+if mount /dev/mapper/$MAP $LVMMNTPNT; then
+	echo "$LVMPART mounted at: $LVMMNTPNT"
+else
+	echo "Mount failed!"
+	exit 1
+fi
