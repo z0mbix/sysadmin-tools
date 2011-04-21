@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 if [ -d /usr/src ]; then
 	if [ -f /usr/src/sys/conf/newvers.sh ]; then
