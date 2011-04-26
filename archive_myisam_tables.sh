@@ -5,9 +5,20 @@
 # Requirements:
 #   tar
 # Usage:
-#   ./taruptables.sh     Archive all MyISAM tables
-#   ./taruptables.sh -r  Archive all MyISAM tables and remove uncompressed tables
+#   ./archive_myisam_tables.sh     Archive all MyISAM tables
+#   ./archive_myisam_tables.sh -r  Archive all MyISAM tables and remove uncompressed tables
 #
+
+if pgrep mysqld>/dev/null; then
+	echo "It appears you are running MySQL, please don't run this from the mysql datadir"
+	echo -n "Do you want to proceed? (y/n): "
+	read ANSWER
+	case "$ANSWER" in
+		y|Y)   ;;
+		n|N)  exit 1 ;;
+		*)    exit 1 ;;
+	esac
+fi
 
 TABLE_LIST=`ls {*.MYI,*.MYD,*.frm}|sed 's/....$//g'|uniq`
 
