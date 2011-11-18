@@ -14,7 +14,7 @@ VOL_GROUP=VM-VG			# Volume group
 DEST_DIR=/Backup/vm		# NFS mount on a NAS?
 DATE_STR=`date +%F`
 COMP_TOOL=gzip
-which pigz >/dev/null 2>&1 || COMP_TOOL=pigz
+which pigz >/dev/null 2>&1 && COMP_TOOL=pigz
 
 # lvs doesn't parse well under cron
 for LV in `ls /dev/${VOL_GROUP} | egrep '\-root$'`; do 

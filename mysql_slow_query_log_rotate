@@ -1,0 +1,13 @@
+/var/lib/mysql/slowquery.log {
+	weekly
+	rotate 4
+	copytruncate
+	missingok
+	compress
+	sharedscripts
+	postrotate
+		if mysqladmin ping &>/dev/null; then
+			mysqladmin flush-logs
+		fi
+	endscript
+}

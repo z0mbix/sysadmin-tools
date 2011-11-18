@@ -11,7 +11,7 @@
 
 TODAY=`date +%Y-%m-%d`
 COMP_TOOL=gzip
-which pigz >/dev/null 2>&1 || COMP_TOOL=pigz
+which pigz >/dev/null 2>&1 && COMP_TOOL=pigz
 
 logger "Dumping All MySQL databases"
 

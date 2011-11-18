@@ -1,0 +1,15 @@
+#!/bin/bash
+#
+# Description:
+#   Script to check if it is the first week of the month. Designed to
+#   work around cron's limitation of not being able to run a command on
+#   the "second sunday of the month". Useful for running DST change scripts.
+#
+# Requirements:
+#   none
+#
+# Usage:
+#   00 00 * 03 0	/usr/local/bin/second_week_of_the_month.sh && (cd /var/www/html;/usr/bin/php /var/www/html/na_dst_start.php)
+#
+
+[ `date +%d` -gt 7 ] && [ `date +%d` -lt 15 ] || exit 1
