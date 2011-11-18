@@ -9,4 +9,5 @@ if [ -z $1 ]; then
 	exit 1
 fi
 
-grep -v -E '^$|^[[:blank:]]*#|^;' $1
+#grep -v -E '^$|^[[:blank:]]*#|^;|//' $1
+grep -v -E '^$|^[[:blank:]]*#|^;|^[[:blank:]]*//' $1
