@@ -10,8 +10,8 @@
 #
 
 TODAY=`date +%Y-%m-%d`
-MYSQL_DIR=/var/lib/mysql/
-DEST_DIR=/Backups/`hostname -s`/db/
+MYSQL_DIR=/var/lib/mysql
+DEST_DIR=/Backups/`hostname -s`/db
 
 logger "Backing up MySQL databases"
 
@@ -23,5 +23,5 @@ if [ "$?" -eq "0" ]; then
 fi
 
 service mysql stop
-rsync -avh --stats --delete-after $MYSQL_DIR $DEST_DIR
+rsync -avh --stats --delete-after $MYSQL_DIR/ $DEST_DIR/
 service mysql start
