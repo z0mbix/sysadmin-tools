@@ -1,0 +1,9 @@
+#!/bin/bash
+
+if [ -z $1 ]; then
+	echo "Showing tables for all schemas"
+	mysql -e "select table_schema, table_name, engine from information_schema.tables"
+else
+	echo "Showing tables for schema: $1"
+	mysql -e "select table_name, engine from information_schema.tables where table_schema='$1'"
+fi
