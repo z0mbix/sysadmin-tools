@@ -1,27 +1,40 @@
 #!/bin/bash
 #
-# Generate MAC address for use with Xen
+# Generate MAC address for virtual hosts
 #
-# Use range 00:16:3e:xx:xx:xx as per Xen docs:
+# Xen range 00:16:3e:xx:xx:xx
+#  http://wiki.xensource.com/xenwiki/XenNetworking#head-d5446face7e308f577e5aee1c72cf9d156903722
 #
-# http://wiki.xensource.com/xenwiki/XenNetworking#head-d5446face7e308f577e5aee1c72cf9d156903722
+# KVM range 52:54:00:xx:xx:xx
+#  http://linux.die.net/man/1/virt-install
+#
+# Vmware range 00:50:56:xx:xx:xx
+#  http://kb.vmware.com/selfservice/microsites/search.do?language=en_US&cmd=displayKC&externalId=219
 #
 
+function usage() {
+    echo "Example: $0 xen"
+}
 if [ -z $1 ]; then
     echo "You must specify xen, kvm or vmware"
-    echo "Example: $0 xen"
+    usage
     exit 1
 fi
 
 case "$1" in
     xen)
-        prefix="00:16:3E"
+        prefix="00:16:3e"
         ;;
     kvm)
         prefix="52:54:00"
         ;;
     vmware)
         prefix="00:50:56"
+        ;;
+    *)
+        echo "$1 is not a valid option"
+        usage
+        exit 1
         ;;
 esac
 
