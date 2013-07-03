@@ -24,13 +24,14 @@ if [ -z $datadir ]; then
 	exit 1
 fi
 
+# Don't run this in the MySQL datadir, that wouldn't be fun
 if [ "$PWD" == "$datadir" ]; then
 	echo "Don't run this from the mysql datadir!"
 	echo "Copy the tables to a backu dir/host first, then run this"
 	exit 2
 fi
 
-TABLE_LIST=`ls {*.MYI,*.MYD,*.frm}|sed 's/....$//g'|uniq`
+TABLE_LIST=`ls {*.MYI,*.MYD,*.frm} 2>/dev/null|sed 's/....$//g'|uniq`
 
 # Create a gzipped tarball for each TABLE in the pwd
 for TABLE in $TABLE_LIST; do
