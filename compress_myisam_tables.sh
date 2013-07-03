@@ -9,15 +9,25 @@
 #   ./archive_myisam_tables.sh -r  Archive all MyISAM tables and remove uncompressed tables
 #
 
-if pgrep mysqld>/dev/null; then
-	echo "It appears you are running MySQL, please don't run this from the mysql datadir"
-	echo -n "Do you want to proceed? (y/n): "
-	read ANSWER
-	case "$ANSWER" in
-		y|Y)   ;;
-		n|N)  exit 1 ;;
-		*)    exit 1 ;;
-	esac
+# MySQL config file? RedHat/CentOS etc.
+if [ -f /etc/my.cnf ]; then
+	datadir=`grep datadir /etc/my.cnf | cut -f2 -d= | tr -d ' '`
+fi
+
+# Debian/Ubuntu?
+if [ -f /etc/mysql/my.cnf ]; then
+	datadir=`grep datadir /etc/my.cnf | cut -f2 -d= | tr -d ' '`
+fi
+
+if [ -z $datadir ]; then
+	echo "Could not find the MySQL datadir!"
+	exit 1
+fi
+
+if [ "$PWD" == "$datadir" ]; then
+	echo "Don't run this from the mysql datadir!"
+	echo "Copy the tables to a backu dir/host first, then run this"
+	exit 2
 fi
 
 TABLE_LIST=`ls {*.MYI,*.MYD,*.frm}|sed 's/....$//g'|uniq`
