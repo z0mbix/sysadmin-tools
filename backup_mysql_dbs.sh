@@ -18,19 +18,20 @@ logger "Dumping All MySQL databases"
 # Check if a master server:
 mysql -e "show global variables like 'log_bin'"|grep ON
 if [ "$?" -eq "0" ]; then
-	FLAGS="--master-data"
+  FLAGS="--master-data"
 else
-	FLAGS=""
+  FLAGS=""
 fi
 
 DBS=`mysql --skip-column-names -e "show databases"`
 
 for DB in $DBS; do
-	if [ ! -d $DB ]; then
-		mkdir $DB
-	fi
-	DUMPFILE="${DB}_${TODAY}.sql.gz"
-	echo -n "Dumping MySQL Database: ${DB} (`date '+%H:%M:%S'`) - "
-	mysqldump $FLAGS --triggers --routines "${DB}" | $COMP_TOOL > ${DB}/${DUMPFILE}
-	echo "done (`date '+%H:%M:%S'`)"
+  if [ ! -d $DB ]; then
+    mkdir $DB
+  fi
+  DUMPFILE="${DB}_${TODAY}.sql.gz"
+  echo -n "Dumping MySQL Database: ${DB} (`date '+%H:%M:%S'`) - "
+  mysqldump $FLAGS --triggers --routines "${DB}" | $COMP_TOOL > ${DB}/${DUMPFILE}
+  echo "done (`date '+%H:%M:%S'`)"
 done
+
