@@ -1,0 +1,22 @@
+#!/usr//bin/env bash
+#
+# List all elasticsearch snapshots in a snapshot repository
+#
+
+snapshot_repo=$1
+es_host='127.0.0.1'
+es_port='9200'
+
+which jq 1>/dev/null || exit 1
+
+if [[ -z $snapshot_repo ]]; then
+  echo 'You need to specify a snapshot repository!'
+  echo 'The following repos are available:'
+  curl -s "${es_host}:${es_port}/_snapshot/_all" | jq '.|keys'[]
+  exit 1
+fi
+
+curl -s "${es_host}:${es_port}/_snapshot/${snapshot_repo}/_all" |\
+              jq -r '.snapshots[].snapshot + " " + .end_time' |\
+              sort -k 2 -r
+
