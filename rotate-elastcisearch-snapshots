@@ -3,7 +3,8 @@
 # Basic elasticsearch snapshot clean up script
 #
 
-snapshots_to_keep='8'
+snapshots_to_keep='7'
+tail_num=$(($snapshots_to_keep + 1))
 snapshot_repo=$1
 es_host='127.0.0.1'
 es_port='9200'
@@ -17,10 +18,10 @@ if [[ -z $snapshot_repo ]]; then
   exit 1
 fi
 
-snapshots=$(curl -s "${es_host}:${es_port}/_snapshot/${snapshot_repo}/_all?pretty" |\
+snapshots=$(curl -s "${es_host}:${es_port}/_snapshot/${snapshot_repo}/_all" |\
               jq -r '.snapshots[].snapshot + " " + .end_time' |\
               sort -k 2 -r |\
-              tail -n+${snapshots_to_keep})
+              tail -n+${tail_num})
 
 delete_snapshot() {
   local ss=$1
