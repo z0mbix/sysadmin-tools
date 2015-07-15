@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+#
+# Sniff me some HTTP
+#
+# Change default port with arg1, so to sniff Elastichsearch:
+# tcpdump-http 9200
+#
+
+port='80'
+
+if [[ $1 ]]; then
+  port="$1"
+fi
+
+tcpdump -A -nn -s 0 \
+  "tcp dst port $port and \
+    (((ip[2:2] - ((ip[0]&0xf)<<2)) - ((tcp[12]&0xf0)>>2)) != 0)"
