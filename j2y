@@ -1,0 +1,16 @@
+#!/usr/bin/env python
+#
+# Usage: j2y file.json (file)
+# Usage: j2y < file.json (stdin)
+#
+
+import sys, yaml, json
+
+# Support reading file from file or stdin
+if len(sys.argv) == 2:
+    file = open(sys.argv[1])
+else:
+    file = sys.stdin
+
+print yaml.dump(yaml.load(json.dumps(json.loads(file.read()))), default_flow_style=False)
+

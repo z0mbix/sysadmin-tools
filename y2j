@@ -1,0 +1,16 @@
+#!/usr/bin/env python
+#
+# Usage: y2j file.yaml (file)
+# Usage: y2j < file.yaml (stdin)
+#
+
+import sys, yaml, json
+
+# Support reading file from file or stdin
+if len(sys.argv) == 2:
+    file = open(sys.argv[1])
+else:
+    file = sys.stdin
+
+json.dump(yaml.load(file.read()), sys.stdout, indent=2)
+
