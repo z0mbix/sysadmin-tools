@@ -7,4 +7,4 @@ else
   jq_opts='.'
 fi
 
-curl "${@}" | jq "$jq_opts"
+curl -s "${@}" | jq "$jq_opts"
