@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+# If the last argument starts with a . use it otherwise just use .
+if [[ "${!#:0:1}" == '.' ]]; then
+  jq_opts="${!#}"
+else
+  jq_opts='.'
+fi
+
+curl "${@}" | jq "$jq_opts"
