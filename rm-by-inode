@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+#
+# Delete files with odd names or special characters that rm cannot remove
+#
+
+[[ $TRACE ]] && set -x
+set -e
+
+file="$1"
+
+if [[ -z "$file" ]]; then
+  echo 'You must specify a file to remove'
+  exit 1
+fi
+
+if [[ ! -f "$file" ]]; then
+  echo "Cannot find file: $file"
+  exit 2
+fi
+
+# Get inode number of file
+inode=$(ls -i "$file" | awk '{print $1}')
+
+# Remove file
+find . -inum $inode -exec rm -i {} \;
