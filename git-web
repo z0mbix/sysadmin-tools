@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+#
+# Tested on OS X and Ubuntu against GitHub and Bitbucket
+#
+# Requirements:
+#
+# You need xdg-open on Linux (From xdg-utils package)
+#
+
+while getopts ":o" o; do
+  case "${o}" in
+    o) open=true ;;
+    *) usage ;;
+  esac
+done
+
+url=$(git remote -v |\
+  grep '(fetch)' |\
+  awk '{print $2}' |\
+  sed "s@^git\@\(.*\)\(:\)\(.*\)\.git@https://\1/\3@g")
+
+if [[ $(uname) == 'Darwin' ]]; then
+  open_cmd='open'
+else
+  open_cmd='xdg-open'
+fi
+
+if [[ $open ]]; then
+  $open_cmd $url
+else
+  echo "$url"
+fi
