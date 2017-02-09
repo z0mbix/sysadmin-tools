@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+#
+# Usage: e.g: ./tfdoc aws_iam_role
+#
+
+if [[ -z $1 ]]; then
+  echo 'Please let me know the resource'
+  exit 1
+fi
+
+if [[ $(uname) == 'Darwin' ]]; then
+  open_cmd='open'
+else
+  open_cmd='xdg-open'
+fi
+
+provider="${1%%_*}"
+resource="${1#*_}"
+
+$open_cmd https://www.terraform.io/docs/providers/${provider}/r/${resource}.html
