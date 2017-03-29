@@ -15,4 +15,3 @@ if [[ "${!#:0:1}" == '.' ]]; then
 fi
 
 curl -s "$@" | jq "$jq_opts"
-
