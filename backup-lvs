@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # 
 # Description:
 #   Dump all the LVM volumes on a host from a read-only snapshot to a

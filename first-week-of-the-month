@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #
 # Description:
 #   Script to check if it is the first week of the month. Designed to

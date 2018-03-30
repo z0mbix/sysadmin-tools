@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #
 # Description:
 #   If NFS clients boot-up before the NFS server(s) have started

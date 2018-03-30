@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #
 # Description:
 #   Wait a random time in seconds between 0 and MAX_SLEEP then exit
